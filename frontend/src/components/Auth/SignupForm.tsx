@@ -23,7 +23,7 @@ const SignupForm = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Validation
@@ -39,7 +39,7 @@ const SignupForm = () => {
 
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-4">   
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">   
         <FormInput label="Namn" type="text" name="name" onChange={handleChange} value={data.name} />
           
         <FormInput label="E-post" type="email" name="email" onChange={handleChange} value={data.email} />
