@@ -34,22 +34,67 @@ _FurEver Friends_ is a web and mobile platform designed to bring pet owners toge
 
    ```sh
    git clone git@github.com:HeidiDragomir/furever-friends.git
+
+   ```
+
+2. **Navigate to the project folder:**
+
+   ```sh
    cd frontend
 
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
 
    ```sh
    npm install
 
    ```
 
-3. **Start the development server:**
+4. **Start the development server:**
+
    ```sh
    npm run dev
+
    ```
 
+   The application should now be available at [http://localhost:5173](http://localhost:5173) in your browser.
+
+## Building and visiting the application
+
+To build the application for production and view it in the browser follow these steps:
+
+1. **Run the following command to create an optimized build of the app:**
+
+   ```sh
+   npm run build
+
+   ```
+
+2. **Push the changes to GitHub:**
+
+   ```sh
+   git add .
+   git commit -m "Build production version"
+   git push
+
+   ```
+
+3. **Connect to DigitalOcean App Platform:**
+
+   - Create an Account and Log In to _DigitalOcean_.
+   - Once logged in go to the App Platform from the _DigitalOcean_ dashboard.
+   - Click the "Create App" button to start the app creation process.
+   - Connect your GitHub repository. You'll need to authorize _DigitalOcean_ to access your GitHub account and select the repository where your app is stored.
+   - Choose the branch to deploy.
+   - Check if it is the right _Source Directory_
+   - Click Next until the final step to create the live app.
+
+4. **Visit your app:**
+
+   Once the deployment is complete you will be provided with a URL to access your app on App Platform. You can visit the app using this URL and it will be publicly available.
+
+   You can also configure a custom domain if desired via the DigitalOcean dashboard.
 
 ### Contact
 
