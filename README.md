@@ -11,7 +11,9 @@
 
 ## 🐾 General Information
 
-_FurEver Friends_ is a web and mobile platform designed to bring pet owners together in one digital space. The app helps users find pet services nearby, connect with other animal lovers, participate in local events, adopt pets, and even match with pet sitters. Whether you're a new pet parent or a long-time animal enthusiast, FurEver Friends offers a supportive community and practical tools to make pet ownership easier and more joyful.
+*FurEver Friends* is a web and mobile platform designed to bring pet owners together in one digital space. The app helps users find pet services nearby, connect with other animal lovers, participate in local events, adopt pets, and even match with pet sitters. Whether you're a new pet parent or a long-time animal enthusiast, FurEver Friends offers a supportive community and practical tools to make pet ownership easier and more joyful.
+
+You can find the live version here: [Furever Friends](https://furever-friends-fe-app-6foxr.ondigitalocean.app/)
 
 ## 🛠️ Built with
 
