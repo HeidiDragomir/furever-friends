@@ -1,82 +1,232 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 
 type HeaderProps = {
-  isLoggedIn: boolean,
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
+    isLoggedIn: boolean;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("User");
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
+    const handleLogout = () => {
+        localStorage.removeItem("User");
+        setIsLoggedIn(false);
+        navigate("/login");
+    };
 
-  return (
-    <nav className="bg-gray-800 text-white shadow-md flex justify-around items-center h-[100px]">
-      <ul className="flex justify-center items-center gap-12 text-xl">
-      <li><NavLink
-        to="/"
-        className={({ isActive }) =>
-          isActive ? "text-gray-400" : "text-white"
-        }
-      >
-        Hem
-        </NavLink></li>
-        <li><NavLink
-        to="/business-plan"
-        className={({ isActive }) =>
-          isActive ? "text-gray-400" : "text-white"
-        }
-      >
-        Affärsplan
-        </NavLink></li>
-          <li><NavLink
-        to="/project-idea"
-        className={({ isActive }) =>
-          isActive ? "text-gray-400" : "text-white"
-        }
-      >
-        Projektidé
-        </NavLink></li>
-        <li><NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive ? "text-gray-400" : "text-white"
-          }
-        >
-          Kontakta oss
-        </NavLink></li>
-      </ul>
+    return (
+        <header className="sticky top-0 z-99 flex justify-between text-secondary_text border-b-4 border-aquamarine-300 py-2 px-2 ">
+            {/* <ul className="flex justify-center items-center gap-12 text-xl">
+                <li>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            isActive ? "text-gray-400" : "text-white"
+                        }
+                    >
+                        Hem
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/business-plan"
+                        className={({ isActive }) =>
+                            isActive ? "text-gray-400" : "text-white"
+                        }
+                    >
+                        Affärsplan
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/project-idea"
+                        className={({ isActive }) =>
+                            isActive ? "text-gray-400" : "text-white"
+                        }
+                    >
+                        Projektidé
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/contact"
+                        className={({ isActive }) =>
+                            isActive ? "text-gray-400" : "text-white"
+                        }
+                    >
+                        Kontakta oss
+                    </NavLink>
+                </li>
+            </ul>
 
-      
-      <ul className="flex justify-center items-center gap-12 text-xl">
+            <ul className="flex justify-center items-center gap-12 text-xl">
+                {!isLoggedIn ? (
+                    <>
+                        <li>
+                            <NavLink
+                                to="/login"
+                                className={({ isActive }) =>
+                                    isActive ? "text-gray-400" : "text-white"
+                                }
+                            >
+                                Logga in
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/signup"
+                                className={({ isActive }) =>
+                                    isActive ? "text-gray-400" : "text-white"
+                                }
+                            >
+                                Registrera
+                            </NavLink>
+                        </li>
+                    </>
+                ) : (
+                    <li>
+                        <button
+                            onClick={handleLogout}
+                            className="text-white cursor-pointer"
+                        >
+                            Logga ut
+                        </button>
+                    </li>
+                )}
+            </ul> */}
 
-      {!isLoggedIn ? (
-        <>
-          <li><NavLink
-              to="/login"
-              className={({ isActive }) => isActive ? "text-gray-400" : "text-white"}
-            >
-              Logga in
-            </NavLink></li><li><NavLink
-              to="/signup"
-              className={({ isActive }) => isActive ? "text-gray-400" : "text-white"}
-            >
-              Registrera
-            </NavLink></li>
-        </>
-      ) : (
-        <li>
-            <button onClick={handleLogout} className="text-white cursor-pointer">Logga ut</button>
-        </li>
-      )      
-      } 
-      </ul>
-    </nav>
-  )
-}
+            <div className="flex items-center mx-2 gap-1">
+                {!menuOpen ? (
+                    <button
+                        className="w-10 h-10 cursor-pointer"
+                        onClick={() => setMenuOpen(true)}
+                        aria-label="Menu"
+                    >
+                        <img src="svg/menu.svg" alt="Menu icon" />
+                    </button>
+                ) : (
+                    <div>
+                        <button
+                            className="w-10 h-10 cursor-pointer"
+                            onClick={() => setMenuOpen(false)}
+                            aria-label="Menu"
+                        >
+                            <img src="images/menu-close.png" alt="Menu icon" />
+                        </button>
+                        <nav className="flex flex-col z-9999 bg-secondary_background text-base/10 text-main_text absolute top-26 w-[calc(100%-3rem)] mx-2 p-4 rounded-2xl shadow-lg justify-start border-2 border-aquamarine-300">
+                            <ul className="">
+                                <li>
+                                    <NavLink
+                                        to="/"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Hem
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/business-plan"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Interaktiv karta
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/project-idea"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Community/Forum
+                                    </NavLink>
+                                </li>
 
-export default Header
+                                <li>
+                                    <NavLink
+                                        to="/"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Kalender &amp; Evenemang
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Marknadsplats
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Adoption &amp; Fosterhem
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/contact"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                    >
+                                        Kontakta oss
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                )}
+            </div>
+
+            <NavLink to="/" className="">
+                <img
+                    src="images/logo.png"
+                    alt="FurEver Friends logo"
+                    className="w-40 h-19 cursor-pointer"
+                />
+            </NavLink>
+
+            <div className="flex items-center mx-2 gap-1">
+                <NavLink to="/login" className="cursor-pointer">
+                    <img
+                        src="images/login.png"
+                        alt="Login"
+                        className="w-10 h-10"
+                    />
+                </NavLink>
+            </div>
+        </header>
+    );
+};
+
+export default Header;
