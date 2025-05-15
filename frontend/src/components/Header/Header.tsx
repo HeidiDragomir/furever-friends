@@ -17,7 +17,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
     };
 
     return (
-        <header className="sticky top-0 z-99 flex justify-between text-secondary_text border-b-4 border-aquamarine-300 py-2 px-2 ">
+        <header className=" bg-maize-900 sticky top-0 z-99 flex justify-between text-secondary_text border-b-2 border-aquamarine-300 py-2 px-2 ">
             {/* <ul className="flex justify-center items-center gap-12 text-xl">
                 <li>
                     <NavLink

@@ -126,6 +126,66 @@
     --color-aquamarine-700: #60ffea;
     --color-aquamarine-800: #95fff1;
     --color-aquamarine-900: #cafff8;
+
+    /* Yinmn Blue */
+    --color-yinmn_blue: #355070;
+    --color-yinmn_blue-100: #0a1016;
+    --color-yinmn_blue-200: #151f2c;
+    --color-yinmn_blue-300: #1f2f43;
+    --color-yinmn_blue-400: #2a3f59;
+    --color-yinmn_blue-500: #355070;
+    --color-yinmn_blue-600: #4a709e;
+    --color-yinmn_blue-700: #7293bc;
+    --color-yinmn_blue-800: #a1b7d3;
+    --color-yinmn_blue-900: #d0dbe9;
+
+  /* Chinese Violet */
+    --color-chinese_violet: #6d597a;
+    --color-chinese_violet-100: #161218;
+    --color-chinese_violet-200: #2b2331;
+    --color-chinese_violet-300: #413549;
+    --color-chinese_violet-400: #564661;
+    --color-chinese_violet-500: #6d597a;
+    --color-chinese_violet-600: #8a739a;
+    --color-chinese_violet-700: #a896b3;
+    --color-chinese_violet-800: #c5b9cc;
+    --color-chinese_violet-900: #e2dce6;
+
+  /* China Rose */
+    --color-china_rose: #b56576;
+    --color-china_rose-100: #261216;
+    --color-china_rose-200: #4c242d;
+    --color-china_rose-300: #723743;
+    --color-china_rose-400: #97495a;
+    --color-china_rose-500: #b56576;
+    --color-china_rose-600: #c38391;
+    --color-china_rose-700: #d2a2ac;
+    --color-china_rose-800: #e1c1c8;
+    --color-china_rose-900: #f0e0e3;
+
+  /* Light Coral */
+    --color-light_coral: #e56b6f;
+    --color-light_coral-100: #390a0c;
+    --color-light_coral-200: #721417;
+    --color-light_coral-300: #ac1e23;
+    --color-light_coral-400: #db3238;
+    --color-light_coral-500: #e56b6f;
+    --color-light_coral-600: #ea898c;
+    --color-light_coral-700: #efa7a9;
+    --color-light_coral-800: #f5c4c6;
+    --color-light_coral-900: #fae2e2;
+
+  /* Buff */
+    --color-buff: #eaac8b;
+    --color-buff-100: #3f1e0c;
+    --color-buff-200: #7e3b17;
+    --color-buff-300: #bd5923;
+    --color-buff-400: #de7f4c;
+    --color-buff-500: #eaac8b;
+    --color-buff-600: #eebda2;
+    --color-buff-700: #f2cdb9;
+    --color-buff-800: #f6ded0;
+    --color-buff-900: #fbeee8;
 }
 
 

@@ -10,7 +10,7 @@ const Layout = ({ isLoggedIn, setIsLoggedIn }: LayoutProps) => {
     return (
         <>
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-            <main className="flex-grow py-8 px-4">
+            <main className="flex-grow">
                 <Outlet />
             </main>
             <Footer />

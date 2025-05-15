@@ -8,6 +8,7 @@ import Home from "./pages/Home.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import { useEffect, useState } from "react";
+import InteractiveMap from "./pages/InteractiveMap.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,6 +38,8 @@ function App() {
                     element={<Login setIsLoggedIn={setIsLoggedIn} />}
                 />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/interactive-map" element={<InteractiveMap />} />
+                <Route path="/calendar" element={<Home />} />
                 <Route path="/business-plan" element={<BusinessPlan />} />
                 <Route path="/project-idea" element={<ProjectIdea />} />
                 <Route path="/contact" element={<Contact />} />
