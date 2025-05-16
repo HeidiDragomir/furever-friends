@@ -115,7 +115,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
                         >
                             <img src="images/menu-close.png" alt="Menu icon" />
                         </button>
-                        <nav className="flex flex-col z-9999 bg-secondary_background text-base/10 text-main_text absolute top-26 w-[calc(100%-3rem)] mx-2 p-4 rounded-2xl shadow-lg justify-start border-2 border-aquamarine-300">
+                        <nav className="flex flex-col z-9999 bg-secondary_background text-base/10 text-main_text absolute top-26 right-2 w-[calc(100%-2rem)] mx-2 p-4 rounded-2xl shadow-lg justify-start border-2 border-aquamarine-300">
                             <ul className="">
                                 <li>
                                     <NavLink
@@ -125,32 +125,22 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Hem
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/business-plan"
+                                        to="/interactive-map"
                                         className={({ isActive }) =>
                                             isActive
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Interaktiv karta
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/project-idea"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Community/Forum
                                     </NavLink>
                                 </li>
 
@@ -162,32 +152,48 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Kalender &amp; Evenemang
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/"
+                                        to="/marketplace"
                                         className={({ isActive }) =>
                                             isActive
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Marknadsplats
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/"
+                                        to="/adoption-foster"
                                         className={({ isActive }) =>
                                             isActive
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Adoption &amp; Fosterhem
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/forum"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "text-gray-400"
+                                                : "text-main_text"
+                                        }
+                                        onClick={() => setMenuOpen(false)}
+                                    >
+                                        Community/Forum
                                     </NavLink>
                                 </li>
                                 <li>
@@ -198,6 +204,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
                                                 ? "text-gray-400"
                                                 : "text-main_text"
                                         }
+                                        onClick={() => setMenuOpen(false)}
                                     >
                                         Kontakta oss
                                     </NavLink>

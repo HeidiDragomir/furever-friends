@@ -9,6 +9,9 @@ import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import { useEffect, useState } from "react";
 import InteractiveMap from "./pages/InteractiveMap.tsx";
+import Marketplace from "./pages/Marketplace.tsx";
+import Forum from "./pages/Forum.tsx";
+import AdoptionFoster from "./pages/AdoptionFoster.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +43,9 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/interactive-map" element={<InteractiveMap />} />
                 <Route path="/calendar" element={<Home />} />
+                <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/adoption-foster" element={<AdoptionFoster />} />
+                <Route path="/forum" element={<Forum />} />
                 <Route path="/business-plan" element={<BusinessPlan />} />
                 <Route path="/project-idea" element={<ProjectIdea />} />
                 <Route path="/contact" element={<Contact />} />
