@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-main_background: #F9F7F7;
+    --color-secondary_background: #eaebe7;
+    --color-main_text: #2D3748;
+    --color-secondary_text: #4A5568;
+
+    /* Bittersweet */
+    --color-bittersweet: #ff595e;
+    --color-bittersweet-100: #440002;
+    --color-bittersweet-200: #890005;
+    --color-bittersweet-300: #cd0007;
+    --color-bittersweet-400: #ff121a;
+    --color-bittersweet-500: #ff595e;
+    --color-bittersweet-600: #ff787d;
+    --color-bittersweet-700: #ff9a9d;
+    --color-bittersweet-800: #ffbcbe;
+    --color-bittersweet-900: #ffddde;
+
+    /* Sunglow */
+    --color-sunglow: #ffca3a;
+    --color-sunglow-100: #3e2e00;
+    --color-sunglow-200: #7c5b00;
+    --color-sunglow-300: #bb8900;
+    --color-sunglow-400: #f9b700;
+    --color-sunglow-500: #ffca3a;
+    --color-sunglow-600: #ffd560;
+    --color-sunglow-700: #ffdf88;
+    --color-sunglow-800: #ffeaaf;
+    --color-sunglow-900: #fff4d7;
+
+    /* Yellow Green */
+    --color-yellow_green: #8ac926;
+    --color-yellow_green-100: #1c2808;
+    --color-yellow_green-200: #38510f;
+    --color-yellow_green-300: #537917;
+    --color-yellow_green-400: #6fa11f;
+    --color-yellow_green-500: #8ac926;
+    --color-yellow_green-600: #a4dc49;
+    --color-yellow_green-700: #bbe577;
+    --color-yellow_green-800: #d2eea4;
+    --color-yellow_green-900: #e8f6d2;
+
+    /* Steel Blue */
+    --color-steel_blue: #1982c4;
+    --color-steel_blue-100: #051a27;
+    --color-steel_blue-200: #0a344e;
+    --color-steel_blue-300: #0f4e74;
+    --color-steel_blue-400: #14679b;
+    --color-steel_blue-500: #1982c4;
+    --color-steel_blue-600: #31a0e4;
+    --color-steel_blue-700: #65b7eb;
+    --color-steel_blue-800: #98cff2;
+    --color-steel_blue-900: #cce7f8;
+
+    /* Ultra Violet */
+    --color-ultra_violet: #6a4c93;
+    --color-ultra_violet-100: #150f1e;
+    --color-ultra_violet-200: #2a1f3b;
+    --color-ultra_violet-300: #402e59;
+    --color-ultra_violet-400: #553d76;
+    --color-ultra_violet-500: #6a4c93;
+    --color-ultra_violet-600: #8768b1;
+    --color-ultra_violet-700: #a58ec5;
+    --color-ultra_violet-800: #c3b4d8;
+    --color-ultra_violet-900: #e1d9ec;
+
+    /* Amethyst */
+    --color-amethyst: #9b5de5;
+    --color-amethyst-100: #1e0937;
+    --color-amethyst-200: #3c126f;
+    --color-amethyst-300: #591ba6;
+    --color-amethyst-400: #7725dc;
+    --color-amethyst-500: #9b5de5;
+    --color-amethyst-600: #ae7dea;
+    --color-amethyst-700: #c29eef;
+    --color-amethyst-800: #d7bef4;
+    --color-amethyst-900: #ebdffa;
+
+    /* Brilliant Rose */
+    --color-brilliant_rose: #f15bb5;
+    --color-brilliant_rose-100: #3d0527;
+    --color-brilliant_rose-200: #7a0b4d;
+    --color-brilliant_rose-300: #b71074;
+    --color-brilliant_rose-400: #eb1e99;
+    --color-brilliant_rose-500: #f15bb5;
+    --color-brilliant_rose-600: #f47cc4;
+    --color-brilliant_rose-700: #f69cd2;
+    --color-brilliant_rose-800: #f9bde1;
+    --color-brilliant_rose-900: #fcdef0;
+
+    /* Maize */
+    --color-maize: #fee440;
+    --color-maize-100: #3f3700;
+    --color-maize-200: #7e6d01;
+    --color-maize-300: #bda401;
+    --color-maize-400: #fcda01;
+    --color-maize-500: #fee440;
+    --color-maize-600: #feea65;
+    --color-maize-700: #feef8b;
+    --color-maize-800: #fff4b2;
+    --color-maize-900: #fffad8;
+
+    /* Deep Sky Blue */
+    --color-deep_sky_blue: #00bbf9;
+    --color-deep_sky_blue-100: #002532;
+    --color-deep_sky_blue-200: #004b64;
+    --color-deep_sky_blue-300: #007096;
+    --color-deep_sky_blue-400: #0096c8;
+    --color-deep_sky_blue-500: #00bbf9;
+    --color-deep_sky_blue-600: #2fcbff;
+    --color-deep_sky_blue-700: #63d8ff;
+    --color-deep_sky_blue-800: #97e5ff;
+    --color-deep_sky_blue-900: #cbf2ff;
+
+    /* Aquamarine */
+    --color-aquamarine: #00f5d4;
+    --color-aquamarine-100: #00312a;
+    --color-aquamarine-200: #006255;
+    --color-aquamarine-300: #00937f;
+    --color-aquamarine-400: #00c4aa;
+    --color-aquamarine-500: #00f5d4;
+    --color-aquamarine-600: #2bffe3;
+    --color-aquamarine-700: #60ffea;
+    --color-aquamarine-800: #95fff1;
+    --color-aquamarine-900: #cafff8;
+
+    /* Yinmn Blue */
+    --color-yinmn_blue: #355070;
+    --color-yinmn_blue-100: #0a1016;
+    --color-yinmn_blue-200: #151f2c;
+    --color-yinmn_blue-300: #1f2f43;
+    --color-yinmn_blue-400: #2a3f59;
+    --color-yinmn_blue-500: #355070;
+    --color-yinmn_blue-600: #4a709e;
+    --color-yinmn_blue-700: #7293bc;
+    --color-yinmn_blue-800: #a1b7d3;
+    --color-yinmn_blue-900: #d0dbe9;
+
+  /* Chinese Violet */
+    --color-chinese_violet: #6d597a;
+    --color-chinese_violet-100: #161218;
+    --color-chinese_violet-200: #2b2331;
+    --color-chinese_violet-300: #413549;
+    --color-chinese_violet-400: #564661;
+    --color-chinese_violet-500: #6d597a;
+    --color-chinese_violet-600: #8a739a;
+    --color-chinese_violet-700: #a896b3;
+    --color-chinese_violet-800: #c5b9cc;
+    --color-chinese_violet-900: #e2dce6;
+
+  /* China Rose */
+    --color-china_rose: #b56576;
+    --color-china_rose-100: #261216;
+    --color-china_rose-200: #4c242d;
+    --color-china_rose-300: #723743;
+    --color-china_rose-400: #97495a;
+    --color-china_rose-500: #b56576;
+    --color-china_rose-600: #c38391;
+    --color-china_rose-700: #d2a2ac;
+    --color-china_rose-800: #e1c1c8;
+    --color-china_rose-900: #f0e0e3;
+
+  /* Light Coral */
+    --color-light_coral: #e56b6f;
+    --color-light_coral-100: #390a0c;
+    --color-light_coral-200: #721417;
+    --color-light_coral-300: #ac1e23;
+    --color-light_coral-400: #db3238;
+    --color-light_coral-500: #e56b6f;
+    --color-light_coral-600: #ea898c;
+    --color-light_coral-700: #efa7a9;
+    --color-light_coral-800: #f5c4c6;
+    --color-light_coral-900: #fae2e2;
+
+  /* Buff */
+    --color-buff: #eaac8b;
+    --color-buff-100: #3f1e0c;
+    --color-buff-200: #7e3b17;
+    --color-buff-300: #bd5923;
+    --color-buff-400: #de7f4c;
+    --color-buff-500: #eaac8b;
+    --color-buff-600: #eebda2;
+    --color-buff-700: #f2cdb9;
+    --color-buff-800: #f6ded0;
+    --color-buff-900: #fbeee8;
+}
+
+
+:root {
+    scroll-behavior: smooth;
+    height: 100%;
+    box-sizing: border-box
+}
+
+body {
+    background-color: #F9F7F7;
+    color: #2D3748;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    margin: 0;
+    list-style: none;
+}

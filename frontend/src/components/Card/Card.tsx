@@ -1,21 +1,35 @@
-import { useState } from "react";
-import "./card.css"
+import { NavLink } from "react-router";
 
+type CardProps = {
+    image?: string;
+    altImage?: string;
+    title?: string;
+    description?: string;
+    pageUrl: string;
+};
 
-const Card = () => {
-
-    const [flip, setFlip] = useState(false);
-
+const Card = ({ image, title, description, altImage, pageUrl }: CardProps) => {
     return (
-    <div className={`card ${flip ? "flip" : ""}`} onClick={() => setFlip(!flip)}>
-        <div className="front" >
-            <img src="dog.jpg" alt="dog" />
-        </div>
-        <div className="back">
-            <img src="cat.jpg" alt="cat" />
-        </div>
-    </div>
-    )
-}
+        <NavLink
+            to={pageUrl}
+            className="flex flex-col items-center gap-4 border-2 border-black rounded-xl py-4 px-8 my-4 mx-4 w-9/10 h-[350px] bg-brilliant_rose-800 relative"
+        >
+            <div className="mb-4">
+                <img src={image} alt={altImage} />
+            </div>
+            <div>
+                <h2 className="text-xl font-semibold mb-4">{title}</h2>
+                <p className="text-md">{description}</p>
+            </div>
+            <div className="flex justify-end w-full absolute bottom-4 right-4">
+                <img
+                    src="images/right-arrow.png"
+                    alt="Next arrow"
+                    className="w-10 h-10 cursor-pointer"
+                />
+            </div>
+        </NavLink>
+    );
+};
 
-export default Card
+export default Card;
