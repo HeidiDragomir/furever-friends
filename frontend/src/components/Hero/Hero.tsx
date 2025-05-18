@@ -2,16 +2,16 @@ import Button from "../Button/Button.tsx";
 
 const Hero = () => {
     return (
-        <div className="py-8 px-6 bg-amber-200 border-2 rounded-xl my-8 mx-4">
-            <div className="flex justify-center mb-4">
+        <div className="relative mt-30 mb-8 mx-4">
+            <div className="flex justify-center absolute -top-20 left-0 right-0">
                 <img
                     src="images/hero.png"
                     alt="Hund och katt"
                     className="rounded-xl"
                 />
             </div>
-            <div className="flex flex-col gap-4 items-center">
-                <h1 className="text-4xl font-bold mb-4">FurEver Friends</h1>
+            <div className="pt-20 pb-8 px-6 bg-amber-200 border-2 rounded-xl flex flex-col gap-4 items-center">
+                <h1 className="text-4xl font-bold mb-4 mt-20">FurEver Friends</h1>
                 <p className="text-xl text-center mb-4">
                     Din digitala mötesplats för allt som rör ditt husdjur!
                 </p>

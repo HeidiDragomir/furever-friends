@@ -17,7 +17,7 @@ const InteractiveMap = () => {
                 console.error("Error loading map:", error);
             } finally {
                 setLoading(false);
-                window.scrollTo(0, 0);
+                // window.scrollTo(0, 0);
             }
         };
 

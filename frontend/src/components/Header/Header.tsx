@@ -17,7 +17,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
     };
 
     return (
-        <header className=" bg-maize-900 sticky top-0 z-99 flex justify-between text-secondary_text border-b-2 border-aquamarine-300 py-2 px-2 ">
+        <header className="bg-maize-900 sticky top-0 z-99 flex justify-between text-secondary_text border-b-2 border-aquamarine-300 py-2 px-2 ">
             {/* <ul className="flex justify-center items-center gap-12 text-xl">
                 <li>
                     <NavLink
@@ -98,114 +98,145 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
             </ul> */}
 
             <div className="flex items-center mx-2 gap-1">
-                {!menuOpen ? (
-                    <button
-                        className="w-10 h-10 cursor-pointer"
-                        onClick={() => setMenuOpen(true)}
-                        aria-label="Menu"
-                    >
-                        <img src="svg/menu.svg" alt="Menu icon" />
-                    </button>
-                ) : (
-                    <div>
-                        <button
-                            className="w-10 h-10 cursor-pointer"
-                            onClick={() => setMenuOpen(false)}
-                            aria-label="Menu"
-                        >
-                            <img src="images/menu-close.png" alt="Menu icon" />
-                        </button>
-                        <nav className="flex flex-col z-9999 bg-secondary_background text-base/10 text-main_text absolute top-26 w-[calc(100%-3rem)] mx-2 p-4 rounded-2xl shadow-lg justify-start border-2 border-aquamarine-300">
-                            <ul className="">
-                                <li>
-                                    <NavLink
-                                        to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Hem
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/business-plan"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Interaktiv karta
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/project-idea"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Community/Forum
-                                    </NavLink>
-                                </li>
+                <button
+                    className="w-10 h-10 cursor-pointer focus:outline-none"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    aria-label="Menu"
+                >
+                    {!menuOpen ? (
+                        <img
+                            src="svg/menu.svg"
+                            alt="Menu icon"
+                            className="transition-transform duration-300"
+                        />
+                    ) : (
+                        <img
+                            src="images/menu-close.png"
+                            alt="Close menu"
+                            className="transition-transform duration-300 transform rotate-90"
+                        />
+                    )}
+                </button>
 
-                                <li>
-                                    <NavLink
-                                        to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Kalender &amp; Evenemang
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Marknadsplats
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Adoption &amp; Fosterhem
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/contact"
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "text-gray-400"
-                                                : "text-main_text"
-                                        }
-                                    >
-                                        Kontakta oss
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                )}
+                <div
+                    className={`absolute top-full w-full left-0 w-64 bg-maize-900 text-main_text rounded-b-2xl shadow-lg border-2 border-aquamarine-300 
+                        transition-all duration-300 ease-in-out overflow-hidden ${
+                            menuOpen
+                                ? "max-h-96 opacity-100"
+                                : "max-h-0 opacity-0 invisible"
+                        }`}
+                    style={{ transformOrigin: "top left" }}
+                >
+                    <nav className="p-4">
+                        <ul className="space-y-3">
+                            <li>
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Hem
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/interactive-map"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Interaktiv karta
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Kalender &amp; Evenemang
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/marketplace"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Marknadsplats
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/adoption-foster"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Adoption &amp; Fosterhem
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/volunteer"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Volontärarbete
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/forum"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Community/Forum
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/contact"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-gray-400"
+                                            : "text-main_text"
+                                    }
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Kontakta oss
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
             <NavLink to="/" className="">
