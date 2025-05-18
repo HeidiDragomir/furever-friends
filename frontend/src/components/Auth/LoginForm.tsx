@@ -10,11 +10,11 @@ type User = {
 };
 
 type LoginFormProps = {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [data, setData] = useState<User>({
         email: "",
@@ -30,14 +30,15 @@ const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
 
         // Validation
         if (!data.email || !data.password) {
-            toast.error("Fyll i både email och lösenord!", { position: "top-center" });
+            toast.error("Fyll i både email och lösenord!", {
+                position: "top-center",
+            });
             return;
         }
 
         const storedUser = localStorage.getItem("User");
 
         if (storedUser) {
-
             const user = JSON.parse(storedUser);
 
             if (user.email === data.email && user.password === data.password) {
@@ -45,24 +46,47 @@ const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
                 setIsLoggedIn(true);
                 navigate("/");
             } else {
-                toast.error("Fel email eller lösenord.", { position: "top-center" });
+                toast.error("Fel email eller lösenord.", {
+                    position: "top-center",
+                });
             }
         } else {
-            toast.error("Inget konto hittades. Skapa ett först.", { position: "top-center" });
+            toast.error("Inget konto hittades. Skapa ett först.", {
+                position: "top-center",
+            });
         }
     };
 
+    return (
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <FormInput
+                type="email"
+                name="email"
+                onChange={handleChange}
+                value={data.email}
+                placeholder="E-post"
+            />
+            <FormInput
+                type="password"
+                name="password"
+                onChange={handleChange}
+                value={data.password}
+                placeholder="Lösenord"
+            />
+            <Button
+                design="outline"
+                className="bg-yellow_green-900 hover:bg-yellow_green-800"
+            >
+                Logga in
+            </Button>
+            <p>
+                Inget konto?{" "}
+                <span className="text-[#7a7a7a] cursor-pointer hover:text-black">
+                    <Link to="/signup">Skapa konto här.</Link>
+                </span>
+            </p>
+        </form>
+    );
+};
 
-  return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <FormInput label="Email" type="email" name="email" onChange={handleChange} value={data.email} />
-        <FormInput label="Lösenord" type="password" name="password" onChange={handleChange} value={data.password} />
-        <Button>Logga in</Button>
-        <p>Inget konto? <span className="text-[#7a7a7a] cursor-pointer hover:text-black"><Link to="/signup">Skapa konto här.</Link></span></p>
-                  
-    </form>
-    
-  )
-}
-
-export default LoginForm
+export default LoginForm;

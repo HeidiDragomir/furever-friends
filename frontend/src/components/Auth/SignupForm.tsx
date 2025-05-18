@@ -28,29 +28,56 @@ const SignupForm = () => {
 
         // Validation
         if (!data.name || !data.email || !data.password) {
-          toast.error("Alla fält måste fyllas i!", { position: "top-center" });
-          return;
+            toast.error("Alla fält måste fyllas i!", {
+                position: "top-center",
+            });
+            return;
         }
         localStorage.setItem("User", JSON.stringify(data));
         toast.success("Ditt konto har skapats!", { position: "top-center" });
         navigate("/login");
-    
-      } 
+    };
 
+    return (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <FormInput
+                placeholder="Namn"
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={data.name}
+            />
 
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">   
-        <FormInput label="Namn" type="text" name="name" onChange={handleChange} value={data.name} />
-          
-        <FormInput label="E-post" type="email" name="email" onChange={handleChange} value={data.email} />
+            <FormInput
+                placeholder="E-post"
+                type="email"
+                name="email"
+                onChange={handleChange}
+                value={data.email}
+            />
 
-        <FormInput label="Lösenord" type="password" name="password" onChange={handleChange} value={data.password} />
-                    
-        <Button>Skapa konto</Button>
-        <p>Redan har du ett konto? <span className="text-[#7a7a7a] cursor-pointer hover:text-black"><Link to="/login">Logga in här.</Link></span></p>
-    </form>
-    
-  )
-}
+            <FormInput
+                placeholder="Lösenord"
+                type="password"
+                name="password"
+                onChange={handleChange}
+                value={data.password}
+            />
 
-export default SignupForm
+            <Button
+                design="outline"
+                className="bg-yellow_green-900 hover:bg-yellow_green-800"
+            >
+                Skapa konto
+            </Button>
+            <p>
+                Redan har du ett konto?{" "}
+                <span className="text-[#7a7a7a] cursor-pointer hover:text-black">
+                    <Link to="/login">Logga in här.</Link>
+                </span>
+            </p>
+        </form>
+    );
+};
+
+export default SignupForm;
