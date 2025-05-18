@@ -1,19 +1,28 @@
 import { useState } from "react";
-import FormCheckbox from "../components/Form/FormCheckbox.tsx";
 import FormInput from "../components/Form/FormInput.tsx";
 import Button from "../components/Button/Button.tsx";
 import Map from "../components/Map/Map.tsx";
 import "leaflet/dist/leaflet.css";
+import { Place } from "../lib/fetchPlacesByCategory.ts";
 
 const InteractiveMap = () => {
-    const [loading, setLoading] = useState(false);
+    const [activeCategories, setActiveCategories] = useState<string[]>([
+        "veterinär",
+    ]);
+    const [favorites, setFavorites] = useState<Place[]>([]);
+    const [searchLocation, setSearchLocation] = useState<string>("");
 
-    if (loading) {
-        return <div>Loading map...</div>;
-    }
+    const handleCategoryToggle = (category: string) => {
+        setActiveCategories((prev) =>
+            prev.includes(category)
+                ? prev.filter((c) => c !== category)
+                : [...prev, category]
+        );
+    };
+
     return (
         <div className="flex flex-col min-h-screen gap-8">
-            <div className="flex flex-col py-8 border-2 rounded-xl mt-8 mb-4 mx-4 gap-4">
+            <div className="flex flex-col pt-8 bg-buff-900 border-2 rounded-xl mt-8 mb-4 mx-4 gap-4">
                 <div className="px-6">
                     <div className="mb-8">
                         <h1 className="text-2xl font-bold mb-4">
@@ -27,54 +36,68 @@ const InteractiveMap = () => {
                     </div>
                     <div className="flex flex-col gap-6 mb-2">
                         <div className="mb-4">
-                            <FormCheckbox label="Sök nära mig" />
-
                             <FormInput
                                 placeholder="Sök i ett annat område"
                                 type="search"
                                 name="search"
-                                onChange={() => console.log("searching")}
-                                value=""
-                                className="mt-4 "
+                                onChange={(e) =>
+                                    setSearchLocation(e.target.value)
+                                }
+                                value={searchLocation}
+                                className="mt-4"
                             />
                         </div>
                         <div className="flex flex-wrap gap-4 mb-2">
-                            <Button
-                                design="outline"
-                                className="hover:bg-maize-700"
-                            >
-                                Veterinär
-                            </Button>
-                            <Button
-                                design="outline"
-                                className="hover:bg-brilliant_rose-800"
-                            >
-                                Djurhem
-                            </Button>
-                            <Button
-                                design="outline"
-                                className="hover:bg-yellow_green-800"
-                            >
-                                Hundrastgård
-                            </Button>
-                            <Button
-                                design="outline"
-                                className="hover:bg-bittersweet-700"
-                            >
-                                Kafé
-                            </Button>
-                            <Button
-                                design="outline"
-                                className="hover:bg-yinmn_blue-800"
-                            >
-                                Djurbutik
-                            </Button>
+                            {[
+                                "veterinär",
+                                "djurhem",
+                                "hundrastgård",
+                                "kafé",
+                                "djurbutik",
+                            ].map((cat) => (
+                                <Button
+                                    key={cat}
+                                    design={
+                                        activeCategories.includes(cat)
+                                            ? "outline"
+                                            : "outline"
+                                    }
+                                    className={
+                                        activeCategories.includes(cat)
+                                            ? "bg-yellow_green-900 hover:bg-yellow_green-800"
+                                            : ""
+                                    }
+                                    onClick={() => handleCategoryToggle(cat)}
+                                >
+                                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                                </Button>
+                            ))}
                         </div>
                     </div>
                 </div>
+                <div className="border-t-2 border-b-2 bg-steel_blue-800 border-black">
+                    <Map
+                        activeCategories={activeCategories}
+                        favorites={favorites}
+                        setFavorites={setFavorites}
+                        searchLocation={searchLocation}
+                    />
+                </div>
 
-                <div className="">
-                    <Map />
+                <div className="flex flex-col py-6 px-6 border-t-2 bg-steel_blue-900 border-black mt-4 gap-2 rounded-b-xl">
+                    <h2 className="text-2xl font-bold mb-4">Favoritplatser</h2>
+                    {favorites.length === 0 && <p>Inga favoriter ännu.</p>}
+                    <ul className="flex flex-col gap-2">
+                        {favorites.map((fav) => (
+                            <li
+                                key={fav.id}
+                                className="border-b-2 border-black mb-2 pb-2"
+                            >
+                                {fav.name} <br />
+                                {fav.phone}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
             <div className="flex flex-col py-8 px-6 border-2 rounded-xl my-4 mx-4 gap-4">
@@ -91,18 +114,22 @@ const InteractiveMap = () => {
                         name="place-name"
                         onChange={() => console.log("place name")}
                         value=""
+                        placeholder="Platsens namn"
                     />
                     <FormInput
                         type="text"
                         name="address"
                         onChange={() => console.log("address")}
                         value=""
+                        placeholder="Adress"
                     />
-                    <FormInput
-                        type="text"
+                    <textarea
+                        className="border-2 border-black rounded-lg p-2 text-lg"
                         name="description"
                         onChange={() => console.log("description")}
                         value=""
+                        placeholder="Beskrivning"
+                        rows={4}
                     />
                     <Button
                         design="outline"
@@ -110,15 +137,6 @@ const InteractiveMap = () => {
                     >
                         Skicka in
                     </Button>
-                </div>
-            </div>
-            <div className="flex flex-col py-8 px-6 border-t-2 border-b-2 bg-steel_blue-800 border-black mt-8 mb-4 gap-4">
-                <div className="flex flex-col py-8 px-6 bg-buff-800 border-2 rounded-xl gap-4">
-                    <h1 className="text-2xl font-bold mb-4">Mina favoriter</h1>
-                    <p className="text-lg">
-                        Här kommer kartan att visas. Du kan zooma in och ut,
-                        samt klicka på olika platser för mer information.
-                    </p>
                 </div>
             </div>
         </div>
