@@ -28,14 +28,14 @@ const Home = () => {
                 <Card
                     image="images/pets.png"
                     title="Adoption &amp; foster"
-                    description="Ge ett djur en andra chans. Utforska djurhem i närheten och anmäl dig som adoptiv- eller fosterhem direkt via appen."
+                    description="Ge ett djur en andra chans. Anmäl dig som adoptiv- eller fosterhem direkt via appen och gör skillnad i ett djurs liv."
                     pageUrl="/adoption-foster"
                 />
                 <Card
                     image="images/volunteering.png"
                     title="Volontärarbete"
                     description="Vill du göra skillnad? Hitta volontäruppdrag hos djurorganisationer och hjälp djur som behöver dig – på riktigt."
-                    pageUrl="/volunteering"
+                    pageUrl="/volunteer"
                 />
                 <Card
                     image="images/chat.png"
