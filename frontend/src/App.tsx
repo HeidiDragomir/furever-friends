@@ -13,6 +13,7 @@ import Marketplace from "./pages/Marketplace.tsx";
 import Forum from "./pages/Forum.tsx";
 import AdoptionFoster from "./pages/AdoptionFoster.tsx";
 import Volunteer from "./pages/Volunteer.tsx";
+import Events from "./pages/Events.tsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,7 +44,7 @@ function App() {
                 />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/interactive-map" element={<InteractiveMap />} />
-                <Route path="/calendar" element={<Home />} />
+                <Route path="/events" element={<Events />} />
                 <Route path="/marketplace" element={<Marketplace />} />
                 <Route path="/adoption-foster" element={<AdoptionFoster />} />
                 <Route path="/forum" element={<Forum />} />

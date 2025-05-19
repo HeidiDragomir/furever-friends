@@ -17,7 +17,7 @@ const Home = () => {
                     image="images/event.png"
                     title="Kalender &amp; Evenemang"
                     description="Skapa eller gå med i hundpromenader och kattträffar! Organisera lokala evenemang och hitta nya vänner - både två- och fyrbenta."
-                    pageUrl="/calendar"
+                    pageUrl="/events"
                 />
                 <Card
                     image="images/marketplace.png"
