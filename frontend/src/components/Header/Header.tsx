@@ -158,7 +158,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }: HeaderProps) => {
 
                             <li>
                                 <NavLink
-                                    to="/"
+                                    to="/events"
                                     className={({ isActive }) =>
                                         isActive
                                             ? "text-gray-400"
