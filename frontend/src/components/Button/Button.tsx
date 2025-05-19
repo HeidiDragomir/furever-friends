@@ -16,7 +16,6 @@ const Button = ({ children, onClick, design, className }: ButtonProps) => {
                     " " +
                     "flex items-center justify-center cursor-pointer w-fit h-[45px] border-black border-solid border-2 rounded-md text-sm font-semibold text-center px-4 py-2 uppercase italic"
                 }
-                type="button"
                 onClick={onClick}
             >
                 {children}
@@ -55,8 +54,6 @@ const Button = ({ children, onClick, design, className }: ButtonProps) => {
             </button>
         );
     }
-
-    
 
     return (
         <button

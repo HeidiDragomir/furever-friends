@@ -5,7 +5,7 @@ import Button from "../Button/Button.tsx";
 import FormInput from "../Form/FormInput.tsx";
 
 type User = {
-    name: string;
+    username: string;
     email: string;
     password: string;
 };
@@ -14,7 +14,7 @@ const SignupForm = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState<User>({
-        name: "",
+        username: "",
         email: "",
         password: "",
     });
@@ -25,15 +25,36 @@ const SignupForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log("data", data);
         // Validation
-        if (!data.name || !data.email || !data.password) {
+        if (!data.username || !data.email || !data.password) {
             toast.error("Alla fält måste fyllas i!", {
                 position: "top-center",
             });
             return;
         }
-        localStorage.setItem("User", JSON.stringify(data));
+        try {
+            const response = await fetch(
+                "https://localhost:7187/api/users/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Något gick fel, försök igen.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("Något gick fel, försök igen.", {
+                position: "top-center",
+            });
+            return;
+        }
+
         toast.success("Ditt konto har skapats!", { position: "top-center" });
         navigate("/login");
     };
@@ -43,9 +64,9 @@ const SignupForm = () => {
             <FormInput
                 placeholder="Namn"
                 type="text"
-                name="name"
+                name="username"
                 onChange={handleChange}
-                value={data.name}
+                value={data.username}
             />
 
             <FormInput
@@ -67,6 +88,7 @@ const SignupForm = () => {
             <Button
                 design="outline"
                 className="bg-yellow_green-900 hover:bg-yellow_green-800"
+                type="submit"
             >
                 Skapa konto
             </Button>

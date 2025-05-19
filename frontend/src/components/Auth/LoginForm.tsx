@@ -15,6 +15,7 @@ type LoginFormProps = {
 
 const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
     const navigate = useNavigate();
+    const [token, setToken] = useState("");
 
     const [data, setData] = useState<User>({
         email: "",
@@ -25,7 +26,7 @@ const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Validation
@@ -36,24 +37,36 @@ const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
             return;
         }
 
-        const storedUser = localStorage.getItem("User");
+        try {
+            const response = await fetch(
+                "https://localhost:7187/api/users/authenticate",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
 
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-
-            if (user.email === data.email && user.password === data.password) {
-                toast.success("Du är inloggad!", { position: "top-center" });
-                setIsLoggedIn(true);
-                navigate("/");
-            } else {
-                toast.error("Fel email eller lösenord.", {
+            if (!response.ok) {
+                toast.error("Felaktigt användarnamn eller lösenord!", {
                     position: "top-center",
                 });
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        } else {
-            toast.error("Inget konto hittades. Skapa ett först.", {
-                position: "top-center",
-            });
+            const result = await response.json();
+
+            if (result) {
+                localStorage.setItem("token", result.token);
+                setToken(result.token);
+                toast.success("Du är inloggad!", {
+                    position: "top-center",
+                });
+                navigate("/");
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
 
