@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { format, formatDate, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
 import toast from "react-hot-toast";
 import Calendar from "react-calendar";
@@ -7,34 +7,21 @@ import Button from "../components/Button/Button.tsx";
 import EventModal from "../components/EventModal/EventModal.tsx";
 import "../App.css";
 
-const initialEvents = [
-    {
-        id: 1,
-        date: "2025-05-20",
-        title: "Morgonpromenad i parken",
-        description: "Träffa andra hundägare för en gemensam promenad.",
-        time: "08:00",
-        city: "Stockholm",
-        location: "Slottsparken",
-        type: "hund",
-    },
-    {
-        id: 2,
-        date: "2025-05-20",
-        title: "Kattfika på innergården",
-        description:
-            "Ta med din katt och fika tillsammans med andra kattägare.",
-        time: "15:00",
-        city: "Malmö",
-        location: "Vasastan",
-        type: "katt",
-    },
-];
+interface Event {
+    id: number;
+    date: string; // "yyyy-MM-dd"
+    title: string;
+    description: string;
+    time: string;
+    location: string;
+    city: string;
+    type: string;
+}
 
 const Events = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showModal, setShowModal] = useState(false);
-    const [events, setEvents] = useState(initialEvents);
+    const [events, setEvents] = useState<Event[]>([]);
     const [formData, setFormData] = useState({
         date: format(selectedDate, "yyyy-MM-dd"),
         title: "",
@@ -47,7 +34,10 @@ const Events = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formattedDate = format(selectedDate, "yyyy-MM-dd");
-    const eventsForDate = events.filter((e) => e.date === formattedDate);
+    const eventsForDate = events.filter((e) => {
+        const eventDate = formatDate(parseISO(e.date), "yyyy-MM-dd");
+        return eventDate === formattedDate;
+    });
     const dayWithText = format(selectedDate, "eeee',' 'den' d MMMM yyyy", {
         locale: sv,
     });
@@ -65,28 +55,23 @@ const Events = () => {
 
         const newEvent = {
             ...formData,
-            date: formattedDate,
+            date: format(selectedDate, "yyyy-MM-dd"),
         };
 
         try {
-            // const response = await fetch("/api/events", {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: JSON.stringify(newEvent),
-            // });
+            const response = await fetch("https://localhost:7187/api/events", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newEvent),
+            });
 
-            // if (!response.ok)
-            //     throw new Error("Något gick fel vid skapandet av evenemanget.");
+            if (!response.ok) {
+                throw new Error("Något gick fel vid skapandet av evenemanget.");
+            }
 
-            // const savedEvent = await response.json();
-            const savedEvent = {
-                ...newEvent,
-                id: events.length + 1,
-            };
+            const savedEvent = await response.json();
 
             setEvents((prev) => [...prev, savedEvent]);
-
-            console.log("Event created:", savedEvent);
 
             setShowModal(false);
 
@@ -105,10 +90,41 @@ const Events = () => {
             });
         } catch (error) {
             console.error(error);
+            toast.error("Fel vid skapande av evenemang.");
         } finally {
             setIsSubmitting(false);
         }
     };
+
+    const getEvents = async (date: Date) => {
+        const formatted = format(date, "yyyy-MM-dd");
+
+        try {
+            const response = await fetch(
+                `https://localhost:7187/api/events/${formatted}`
+            );
+            if (!response.ok) {
+                throw new Error("Kunde inte hämta evenemang.");
+            }
+
+            const data: Event[] = await response.json();
+            console.log("Events from API:", data);
+            setEvents((prevEvents) => {
+                // Filter out events with the same date
+                const withoutDate = prevEvents.filter(
+                    (e) => e.date !== formatted
+                );
+                return [...withoutDate, ...data];
+            });
+        } catch (error) {
+            console.error(error);
+            toast.error("Fel vid hämtning av evenemang.");
+        }
+    };
+
+    useEffect(() => {
+        getEvents(selectedDate);
+    }, [selectedDate]);
 
     return (
         <div className="flex flex-col min-h-screen gap-8">
@@ -142,7 +158,7 @@ const Events = () => {
                 <div className="flex flex-col items-center text-center">
                     <Calendar
                         minDate={new Date()}
-                        onChange={() => setSelectedDate}
+                        // onChange={setSelectedDate}
                         onClickDay={(date) => setSelectedDate(date)}
                         value={selectedDate}
                         defaultValue={
