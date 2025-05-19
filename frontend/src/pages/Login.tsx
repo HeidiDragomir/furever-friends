@@ -1,22 +1,18 @@
 import LoginForm from "../components/Auth/LoginForm.tsx";
 
 type LoginProps = {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const Login = ({ setIsLoggedIn }: LoginProps) => {
-    
-
-  return (
-    <div className="h-[100vh] w-full p-12 m-12">
-        <div className="flex flex-col gap-4 justify-center items-center my-12 p-12">
-                <h1 className="text-3xl font-bold my-4">Logga in</h1>
+    return (
+        <div className="flex flex-col min-h-screen items-center justify-center">
+            <div className="flex flex-col items-center justify-center py-8 px-6 bg-china_rose-900 border-2 rounded-xl mt-4 mx-4 gap-8">
+                <h1 className="text-3xl font-bold">Logga in</h1>
                 <LoginForm setIsLoggedIn={setIsLoggedIn} />
+            </div>
         </div>
-            
-    </div>
-    
-  )
-}
+    );
+};
 
-export default Login
+export default Login;
