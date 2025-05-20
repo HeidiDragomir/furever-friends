@@ -22,7 +22,7 @@ const Home = () => {
                 <Card
                     image="images/marketplace.png"
                     title="Marknadsplats"
-                    description="Skänk, byt eller efterlys djurtillbehör – hållbart för både dig och våra fyrbenta vänner!"
+                    description="Skänk, byt eller efterlys djurtillbehör - hållbart för både dig och våra fyrbenta vänner!"
                     pageUrl="/marketplace"
                 />
                 <Card
@@ -34,7 +34,7 @@ const Home = () => {
                 <Card
                     image="images/volunteering.png"
                     title="Volontärarbete"
-                    description="Vill du göra skillnad? Hitta volontäruppdrag hos djurorganisationer och hjälp djur som behöver dig – på riktigt."
+                    description="Vill du göra skillnad? Hitta volontäruppdrag hos djurorganisationer och hjälp djur som behöver dig - på riktigt."
                     pageUrl="/volunteer"
                 />
                 <Card

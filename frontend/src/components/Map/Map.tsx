@@ -1,6 +1,6 @@
 import "./Map.css";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
     MapContainer,
     TileLayer,
@@ -13,6 +13,8 @@ import useGeolocation from "../../hooks/UseGeolocation.tsx";
 import { fetchPlacesByCategory, Place } from "../../lib/fetchPlacesByCategory";
 import { categoryColors } from "../utils/categoryIcons.ts";
 import { getColoredMarker } from "../utils/getColoredMarker.ts";
+import { MapContext } from "../../context/MapContext.tsx";
+import SearchLocationMarker from "./SearchLocationMarker.tsx";
 
 export const LocationMarker = () => {
     const currentLocation = useGeolocation();
@@ -47,20 +49,10 @@ export const LocationMarker = () => {
     );
 };
 
-interface MapProps {
-    activeCategories: string[];
-    favorites: Place[];
-    setFavorites: (favs: Place[]) => void;
-    searchLocation: string;
-    
-}
+const Map = () => {
+    const { activeCategories, favorites, setFavorites, searchLocation } =
+        useContext(MapContext);
 
-const Map = ({
-    activeCategories,
-    favorites,
-    setFavorites,
-    searchLocation,
-}: MapProps) => {
     const [places, setPlaces] = useState<Place[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -102,12 +94,13 @@ const Map = ({
                     Laddar platser...
                 </div>
             )}
-            <MapContainer center={[0, 0]} zoom={15} scrollWheelZoom={false}>
+            <MapContainer center={[0, 0]} zoom={10} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <LocationMarker />
+                <SearchLocationMarker searchLocation={searchLocation} />
                 {places.map((place) => (
                     <Marker
                         key={place.id}

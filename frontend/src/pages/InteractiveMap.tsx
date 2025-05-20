@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FormInput from "../components/Form/FormInput.tsx";
 import Button from "../components/Button/Button.tsx";
 import Map from "../components/Map/Map.tsx";
 import "leaflet/dist/leaflet.css";
-import { Place } from "../lib/fetchPlacesByCategory.ts";
+import { MapContext } from "../context/MapContext.tsx";
 
 const InteractiveMap = () => {
-    const [activeCategories, setActiveCategories] = useState<string[]>([
-        "veterinär",
-    ]);
-    const [favorites, setFavorites] = useState<Place[]>([]);
-    const [searchLocation, setSearchLocation] = useState<string>("");
+    const {
+        activeCategories,
+        setActiveCategories,
+        favorites,
+        searchLocation,
+        setSearchLocation,
+    } = useContext(MapContext);
+
+    const [searchInput, setSearchInput] = useState("");
 
     const handleCategoryToggle = (category: string) => {
         setActiveCategories((prev) =>
@@ -19,6 +23,14 @@ const InteractiveMap = () => {
                 : [...prev, category]
         );
     };
+
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            setSearchLocation(searchInput);
+        }, 500);
+
+        return () => clearTimeout(debounce);
+    }, [searchInput]);
 
     return (
         <div className="flex flex-col min-h-screen gap-8">
@@ -40,10 +52,8 @@ const InteractiveMap = () => {
                                 placeholder="Sök i ett annat område"
                                 type="search"
                                 name="search"
-                                onChange={(e) =>
-                                    setSearchLocation(e.target.value)
-                                }
-                                value={searchLocation}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                value={searchInput}
                                 className="mt-4"
                             />
                         </div>
@@ -75,13 +85,8 @@ const InteractiveMap = () => {
                         </div>
                     </div>
                 </div>
-                <div className="border-t-2 border-b-2 bg-steel_blue-800 border-black">
-                    <Map
-                        activeCategories={activeCategories}
-                        favorites={favorites}
-                        setFavorites={setFavorites}
-                        searchLocation={searchLocation}
-                    />
+                <div className="border-t-2 border-b-2 bg-steel_blue-800 border-black relative h-[350px]">
+                    <Map />
                 </div>
 
                 <div className="flex flex-col py-6 px-6 border-t-2 bg-steel_blue-900 border-black mt-4 gap-2 rounded-b-xl">

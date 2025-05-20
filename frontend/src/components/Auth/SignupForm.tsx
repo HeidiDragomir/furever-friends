@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import Button from "../Button/Button.tsx";
 import FormInput from "../Form/FormInput.tsx";
-
-type User = {
-    username: string;
-    email: string;
-    password: string;
-};
+import { UserContext } from "../../context/UserContext.tsx";
 
 const SignupForm = () => {
     const navigate = useNavigate();
+    const { register } = useContext(UserContext);
 
-    const [data, setData] = useState<User>({
+    const [data, setData] = useState({
         username: "",
         email: "",
         password: "",
@@ -33,30 +29,22 @@ const SignupForm = () => {
             });
             return;
         }
-        try {
-            const response = await fetch(
-                "https://localhost:7187/api/users/register",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
-            if (!response.ok) {
-                throw new Error("Något gick fel, försök igen.");
-            }
-        } catch (error) {
-            console.error("Error:", error);
+        const success = await register(
+            data.username,
+            data.email,
+            data.password
+        );
+
+        if (success) {
+            toast.success("Ditt konto har skapats!", {
+                position: "top-center",
+            });
+            navigate("/login");
+        } else {
             toast.error("Något gick fel, försök igen.", {
                 position: "top-center",
             });
-            return;
         }
-
-        toast.success("Ditt konto har skapats!", { position: "top-center" });
-        navigate("/login");
     };
 
     return (

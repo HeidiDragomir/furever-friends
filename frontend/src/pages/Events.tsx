@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { format, formatDate, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
 import toast from "react-hot-toast";
@@ -6,6 +6,7 @@ import Calendar from "react-calendar";
 import Button from "../components/Button/Button.tsx";
 import EventModal from "../components/EventModal/EventModal.tsx";
 import "../App.css";
+import { UserContext } from "../context/UserContext.tsx";
 
 interface Event {
     id: number;
@@ -19,6 +20,7 @@ interface Event {
 }
 
 const Events = () => {
+    const { isAuthenticated } = useContext(UserContext);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showModal, setShowModal] = useState(false);
     const [events, setEvents] = useState<Event[]>([]);
@@ -71,7 +73,7 @@ const Events = () => {
 
             const savedEvent = await response.json();
 
-            setEvents((prev) => [...prev, savedEvent]);
+            setEvents((prev) => [savedEvent, ...prev]);
 
             setShowModal(false);
 
@@ -142,7 +144,7 @@ const Events = () => {
                 </p>
             </div>
             <div>
-                <div className="flex flex-col items-center text-center py-8 px-6 bg-deep_sky_blue-900 border-2 rounded-xl mb-18 mx-4 gap-4">
+                <div className="flex flex-col items-center text-center py-8 px-8 bg-deep_sky_blue-900 border-2 rounded-xl mb-18 mx-4 gap-4">
                     <h2 className="text-xl font-semibold mb-2">
                         Välj ett datum i kalendern
                     </h2>
@@ -174,69 +176,78 @@ const Events = () => {
                     Evenemang för <br />
                     {dayWithText}:
                 </h2>
-                {eventsForDate.length === 0 ? (
+                {!isAuthenticated ? (
                     <p className="text-gray-500 w-3/4 mb-4">
-                        Inga evenemang hittades för detta datum.
+                        Logga in för att se alla evenemang eller skapa ett eget.
                     </p>
                 ) : (
-                    <ul className="flex flex-col gap-8 w-full mb-8">
-                        {eventsForDate.map((event) => (
-                            <li
-                                key={event.id}
-                                className="p-4 border rounded-lg shadow-sm bg-white"
-                            >
-                                <div className="flex flex-col items-center">
-                                    <h3 className="font-bold text-lg mb-4">
-                                        {event.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-600 mb-2">
-                                        {event.description}
-                                    </p>
-                                    <div className="flex items-center justify-center gap-2">
-                                        <img
-                                            src="images/clock.png"
-                                            alt="Clock"
-                                            className="w-4 h-4"
-                                        />
-                                        <p className="text-sm mt-1">
-                                            {event.time} |
-                                        </p>
-                                        <img
-                                            src="images/pin.png"
-                                            alt=""
-                                            className="w-4 h-4"
-                                        />
-                                        <p className="text-sm mt-1">
-                                            {event.location},
-                                        </p>
-                                    </div>
-                                    <p className="text-sm mb-4">{event.city}</p>
-
-                                    <Button
-                                        className="mt-2 bg-yellow_green-700"
-                                        design="outline"
+                    <>
+                        {eventsForDate.length === 0 ? (
+                            <p className="text-gray-500 w-3/4 mb-4">
+                                Inga evenemang hittades för detta datum.
+                            </p>
+                        ) : (
+                            <ul className="flex flex-col gap-8 w-full mb-8">
+                                {eventsForDate.map((event, index) => (
+                                    <li
+                                        key={index}
+                                        className="p-4 border rounded-lg shadow-sm bg-white"
                                     >
-                                        Gå med
-                                    </Button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                                        <div className="flex flex-col items-center">
+                                            <h3 className="font-bold text-lg mb-4">
+                                                {event.title}
+                                            </h3>
+                                            <p className="text-sm text-gray-600 mb-2">
+                                                {event.description}
+                                            </p>
+                                            <div className="flex items-center justify-center gap-2">
+                                                <img
+                                                    src="images/clock.png"
+                                                    alt="Clock"
+                                                    className="w-4 h-4"
+                                                />
+                                                <p className="text-sm mt-1">
+                                                    {event.time} |
+                                                </p>
+                                                <img
+                                                    src="images/pin.png"
+                                                    alt=""
+                                                    className="w-4 h-4"
+                                                />
+                                                <p className="text-sm mt-1">
+                                                    {event.location},
+                                                </p>
+                                            </div>
+                                            <p className="text-sm mb-4">
+                                                {event.city}
+                                            </p>
 
-                {!showModal && (
-                    <Button
-                        onClick={() => setShowModal(true)}
-                        className="my-6"
-                        design="outline"
-                    >
-                        Skapa nytt evenemang
-                        <img
-                            src="images/add.png"
-                            alt="Plus icon"
-                            className="w-10 h-10 ml-2"
-                        />
-                    </Button>
+                                            <Button
+                                                className="mt-2 bg-yellow_green-700"
+                                                design="outline"
+                                            >
+                                                Gå med
+                                            </Button>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                        {!showModal && (
+                            <Button
+                                onClick={() => setShowModal(true)}
+                                className="my-6"
+                                design="outline"
+                            >
+                                Skapa nytt evenemang
+                                <img
+                                    src="images/add.png"
+                                    alt="Plus icon"
+                                    className="w-10 h-10 ml-2"
+                                />
+                            </Button>
+                        )}
+                    </>
                 )}
 
                 {showModal && (

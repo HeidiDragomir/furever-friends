@@ -13,7 +13,11 @@ const CardItem = ({ image, title, description, altImage }: CardItemProps) => {
     return (
         <div className="flex flex-col flex-1 items-center border-2 border-black rounded-xl my-4 mx-4 h-fit ">
             <div className="bg-deep_sky_blue-800 border-b-2 border-black w-full h-[200px] flex items-center justify-center rounded-t-xl">
-                <img src="images/boll.png" alt={altImage} className="w-fit" />
+                <img
+                    src="images/scratching-toy.png"
+                    alt={altImage}
+                    className="w-70"
+                />
             </div>
             <div className="py-2 px-2 flex flex-col gap-2">
                 <p className="text-xs underline decoration-2 italic font-semibold mb-4">
