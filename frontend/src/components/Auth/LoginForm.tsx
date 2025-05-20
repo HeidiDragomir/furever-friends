@@ -1,32 +1,25 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Button from "../Button/Button.tsx";
 import FormInput from "../Form/FormInput.tsx";
+import { UserContext } from "../../context/UserContext.tsx";
 
-type User = {
-    email: string;
-    password: string;
-};
-
-type LoginFormProps = {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
+const LoginForm = () => {
+    const { login } = useContext(UserContext);
+    const location = useLocation();
     const navigate = useNavigate();
-    const [token, setToken] = useState("");
 
-    const [data, setData] = useState<User>({
+    const [data, setData] = useState({
         email: "",
         password: "",
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Validation
@@ -37,36 +30,16 @@ const LoginForm = ({ setIsLoggedIn }: LoginFormProps) => {
             return;
         }
 
-        try {
-            const response = await fetch(
-                "https://localhost:7187/api/users/authenticate",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
+        const success = await login(data.email, data.password);
 
-            if (!response.ok) {
-                toast.error("Felaktigt användarnamn eller lösenord!", {
-                    position: "top-center",
-                });
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const result = await response.json();
-
-            if (result) {
-                localStorage.setItem("token", result.token);
-                setToken(result.token);
-                toast.success("Du är inloggad!", {
-                    position: "top-center",
-                });
-                navigate("/");
-            }
-        } catch (error) {
-            console.error(error);
+        if (success) {
+            toast.success("Du är inloggad!", { position: "top-center" });
+            const redirectPath = location.state?.from?.pathname || "/";
+            navigate(redirectPath, { replace: true });
+        } else {
+            toast.error("Felaktigt användarnamn eller lösenord!", {
+                position: "top-center",
+            });
         }
     };
 
