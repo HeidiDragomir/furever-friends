@@ -1,15 +1,9 @@
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
+import Button from "../Button/Button.tsx";
 
 const Footer = () => {
     return (
         <footer className="bg-amethyst-900 py-12 px-4 z-1 mt-4 border-t-2 border-amethyst-300">
-            {/* <div className="flex justify-center items-center gap-24">
-        <NavLink to="/" className="hover:underline">Vanliga frågor</NavLink>
-        <NavLink to="/contact" className="hover:underline">Kontakt</NavLink>
-      </div> */}
-            {/* <div>
-          <p className="text-center py-5">&copy; 2025 FurEver Friends</p>
-      </div> */}
             <div className="bg-amethyst-800 p-4 flex flex-col justify-center items-center border-2 rounded-xl">
                 <NavLink to="/" className="mb-8">
                     <img
@@ -67,6 +61,31 @@ const Footer = () => {
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    <div className="bg-secondary_background p-6 rounded-xl max-w-md mx-auto text-center border-2 rounded-xl">
+                        <h4 className="text-lg font-semibold mb-1">
+                            Anmäl dig till vårt nyhetsbrev
+                        </h4>
+                        <p className="text-sm text-main_text mb-4">
+                            Få tips, evenemang och nyheter direkt till din
+                            inkorg.
+                        </p>
+                        <form className="flex flex-col sm:flex-row items-center gap-2">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Din e-postadress"
+                                required
+                                className="w-full px-4 py-2 rounded-md border border-main_text text-main_text focus:outline-none focus:ring-2 focus:ring-primary"
+                            />
+                            <Button
+                                type="submit"
+                                design="outline"
+                                className="bg-yellow_green-800 mt-4"
+                            >
+                                Prenumerera
+                            </Button>
+                        </form>
                     </div>
                     <div className="flex flex-col justify-center items-center">
                         <h3 className="uppercase font-semibold mb-2">Info</h3>

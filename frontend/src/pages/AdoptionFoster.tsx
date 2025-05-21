@@ -2,6 +2,42 @@ import { useState } from "react";
 import Button from "../components/Button/Button.tsx";
 import CardPet from "../components/Card/CardPet.tsx";
 
+type Pet = {
+    image: string;
+    name: string;
+    species: string;
+    age: string;
+    location: string;
+    description: string;
+    date: string; // "yyyy-MM-dd"
+    username: string;
+};
+
+const mockPets: Pet[] = [
+    {
+        image: "images/cat-image.jpg",
+        name: "Garfield",
+        species: "Katt",
+        age: "7 år",
+        location: "Nässjö",
+        description:
+            "En orange livsnjutare som älskar solfläckar, kattgodis och att bli beundrad. En riktig myspropp med mycket personlighet!",
+        date: "2025-05-07",
+        username: "KattHem",
+    },
+    {
+        image: "images/dog-image.jpg",
+        name: "Snow",
+        species: "Hund",
+        age: "12 år",
+        location: "Skövde",
+        description:
+            "Trots sitt namn är Snow kolsvart och full av energi! Han älskar promenader, lek med andra hundar och att gosa i soffan.",
+        date: "2025-05-08",
+        username: "Hundhjälpen",
+    },
+];
+
 const AdoptionFoster = () => {
     const [activeTab, setActiveTab] = useState(1);
 
@@ -81,9 +117,10 @@ const AdoptionFoster = () => {
                     </ul>
                 </div>
                 {activeTab === 1 && (
-                    <div className="py-2 ">
-                        <CardPet image="images/garfield.png" />
-                        <CardPet image="images/snow.jpg" />
+                    <div className="py-4 px-2 flex flex-col justify-center items-center">
+                        {mockPets.map((pet, index) => (
+                            <CardPet key={index} pet={pet} />
+                        ))}
                     </div>
                 )}
                 {activeTab === 2 && (

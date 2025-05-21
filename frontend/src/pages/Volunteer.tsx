@@ -75,8 +75,8 @@ const Volunteer = () => {
                     <Button design="outline" className="bg-deep_sky_blue-500">
                         Bli volontär
                     </Button>
-                    <Button design="outline">Se uppdrag nära dig</Button>
                     <Button design="outline">Läs mer om att hjälpa till</Button>
+                    <Button design="outline">Se uppdrag nära dig</Button>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@ const InteractiveMap = () => {
                 <div className="px-6">
                     <div className="mb-8">
                         <h1 className="text-2xl font-bold mb-4">
-                            Interactive Map
+                            Interaktiv karta
                         </h1>
                         <p className="text-lg">
                             Upptäck djurvänliga platser nära dig - från

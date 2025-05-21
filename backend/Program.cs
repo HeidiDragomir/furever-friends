@@ -30,6 +30,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
 
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IItemService, ItemService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>

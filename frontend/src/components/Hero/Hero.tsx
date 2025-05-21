@@ -72,14 +72,14 @@ const Hero = () => {
                         </p>
 
                         <div className="flex flex-col gap-2 sm:gap-4 text-md text-gray-800 sm:text-2xl sm:mb-8">
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Skapa en personlig profil för ditt husdjur
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
@@ -87,49 +87,49 @@ const Hero = () => {
                                 Matchningssystem för att hitta nya vänner till
                                 ditt djur
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Rabatter hos samarbetspartners
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Spara obegränsat med favoriter
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Prioriterad kundsupport
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Tillgång till expertrådgivning
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Skapa egna platser på kartan
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
                                 />
                                 Tidigare tillgång till nya funktioner
                             </div>
-                            <div className="flex items-start sm:items-center gap-2">
+                            <div className="flex items-center sm:items-center gap-2">
                                 <img
                                     src="/images/checked-premium.png"
                                     className="w-8 h-8 sm:w-10 sm:h-10"
