@@ -55,19 +55,19 @@ _FurEver Friends_ is a web and mobile platform designed to bring pet owners toge
 
 ### 📦 Clone the Repository
 
-    ```sh
-    git clone git@github.com:HeidiDragomir/furever-friends.git
-    ```
+```sh
+git clone git@github.com:HeidiDragomir/furever-friends.git
+```
 
 ### 🖥️ Running the Application
 
 #### ⚙️ Backend
 
-    ```sh
-    cd backend
-    dotnet ef database update
-    dotnet run
-    ```
+```sh
+cd backend
+dotnet ef database update
+dotnet run
+```
 
 #### 🎨 Frontend
 
@@ -92,7 +92,3 @@ LinkedIn: [Marinela-Adelheid Dragomir](https://www.linkedin.com/in/heidi-dragomi
 ### 📄 License
 
 Distributed under the MIT License. See [LICENSE](https://choosealicense.com/licenses/mit/) for more information.
-
-```
-
-```
