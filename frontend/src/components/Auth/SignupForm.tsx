@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 import Button from "../Button/Button.tsx";
@@ -15,20 +15,37 @@ const SignupForm = () => {
         password: "",
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("data", data);
+
+        const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
         // Validation
-        if (!data.username || !data.email || !data.password) {
-            toast.error("Alla fält måste fyllas i!", {
+        if (!data.username) {
+            toast.error("Ange ett namn.", {
                 position: "top-center",
             });
             return;
         }
+
+        if (!emailRegex.test(data.email)) {
+            toast.error("Ogiltig e-postadress.", { position: "top-center" });
+            return;
+        }
+
+        if (!passwordRegex.test(data.password)) {
+            toast.error(
+                "Lösenord måste vara minst 8 tecken och innehålla minst en bokstav och en siffra.",
+                { position: "top-center" }
+            );
+            return;
+        }
+
         const success = await register(
             data.username,
             data.email,
@@ -50,27 +67,39 @@ const SignupForm = () => {
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <FormInput
-                placeholder="Namn"
                 type="text"
                 name="username"
-                onChange={handleChange}
                 value={data.username}
+                onChange={handleChange}
+                placeholder="Namn"
+                label="Namn"
+                required
+                validationRegex={/^.{3,}$/}
+                errorMessage="Ange ett giltigt namn (minst 3 tecken)."
             />
 
             <FormInput
-                placeholder="E-post"
                 type="email"
                 name="email"
                 onChange={handleChange}
                 value={data.email}
+                placeholder="E-post"
+                label="E-post"
+                required
+                validationRegex={/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/}
+                errorMessage="Ange en giltig e-postadress."
             />
 
             <FormInput
-                placeholder="Lösenord"
                 type="password"
                 name="password"
                 onChange={handleChange}
                 value={data.password}
+                placeholder="Lösenord"
+                label="Lösenord"
+                required
+                validationRegex={/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/}
+                errorMessage="Minst 8 tecken, inklusive en bokstav och en siffra."
             />
 
             <Button

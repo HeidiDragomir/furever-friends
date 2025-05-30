@@ -22,14 +22,11 @@ const LoginForm = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Validation
         if (!data.email || !data.password) {
-            toast.error("Fyll i både email och lösenord!", {
+            toast.error("Fyll i både e-post och lösenord.", {
                 position: "top-center",
             });
-            return;
         }
-
         const success = await login(data.email, data.password);
 
         if (success) {
@@ -51,6 +48,8 @@ const LoginForm = () => {
                 onChange={handleChange}
                 value={data.email}
                 placeholder="E-post"
+                label="E-post"
+                required
             />
             <FormInput
                 type="password"
@@ -58,6 +57,8 @@ const LoginForm = () => {
                 onChange={handleChange}
                 value={data.password}
                 placeholder="Lösenord"
+                label="Lösenord"
+                required
             />
             <Button
                 design="outline"
