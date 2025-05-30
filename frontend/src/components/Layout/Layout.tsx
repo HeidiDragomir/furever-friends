@@ -1,17 +1,22 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Header from "../Header/Header.tsx";
 import Footer from "../Footer/Footer.tsx";
+import ErrorBoundary from "../Error/ErrorBoundary.tsx";
+import ErrorFallback from "../Error/ErrorFallback.tsx";
 
-// type LayoutProps = {
-//     isLoggedIn: boolean;
-//     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-// };
 const Layout = () => {
+    const location = useLocation();
     return (
         <>
             <Header />
             <main className="flex-grow">
-                <Outlet />
+                <ErrorBoundary
+                    fallback={<ErrorFallback />}
+                    key={location.pathname}
+                >
+                    {/* The key prop ensures that the ErrorBoundary remounts on route changes */}
+                    <Outlet />
+                </ErrorBoundary>
             </main>
             <Footer />
         </>
