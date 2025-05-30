@@ -7,17 +7,7 @@ import Button from "../components/Button/Button.tsx";
 import EventModal from "../components/EventModal/EventModal.tsx";
 import "../App.css";
 import { UserContext } from "../context/UserContext.tsx";
-
-interface Event {
-    id: number;
-    date: string; // "yyyy-MM-dd"
-    title: string;
-    description: string;
-    time: string;
-    location: string;
-    city: string;
-    type: string;
-}
+import { createEvent, Event, fetchEventsByDate } from "../api/eventsApi.ts";
 
 const Events = () => {
     const { isAuthenticated } = useContext(UserContext);
@@ -44,8 +34,6 @@ const Events = () => {
         locale: sv,
     });
 
-    console.log("Selected date:", formattedDate);
-
     const handleChange = (e: any) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
@@ -55,77 +43,58 @@ const Events = () => {
 
         setIsSubmitting(true);
 
-        const newEvent = {
+        const newEvent: Event = {
             ...formData,
             date: format(selectedDate, "yyyy-MM-dd"),
         };
 
-        try {
-            const response = await fetch("https://localhost:7187/api/events", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newEvent),
-            });
+        const result = await createEvent(newEvent);
 
-            if (!response.ok) {
-                throw new Error("Något gick fel vid skapandet av evenemanget.");
-            }
-
-            const savedEvent = await response.json();
-
-            setEvents((prev) => [savedEvent, ...prev]);
-
-            setShowModal(false);
-
-            setFormData({
-                date: format(selectedDate, "yyyy-MM-dd"),
-                title: "",
-                description: "",
-                time: "",
-                location: "",
-                city: "",
-                type: "hund",
-            });
-
-            toast.success("Evenemanget har skapats!", {
-                position: "top-center",
-            });
-        } catch (error) {
-            console.error(error);
-            toast.error("Fel vid skapande av evenemang.");
-        } finally {
+        if (!result.success || !result.data) {
+            toast.error(result.message || "Fel vid skapande av evenemang.");
             setIsSubmitting(false);
+            return;
         }
+
+        setEvents((prev) => [result.data as Event, ...prev]);
+
+        setShowModal(false);
+
+        setFormData({
+            date: format(selectedDate, "yyyy-MM-dd"),
+            title: "",
+            description: "",
+            time: "",
+            location: "",
+            city: "",
+            type: "hund",
+        });
+
+        toast.success("Evenemanget har skapats!", {
+            position: "top-center",
+        });
+
+        setIsSubmitting(false);
     };
 
-    const getEvents = async (date: Date) => {
+    const getEventsByDate = async (date: Date) => {
         const formatted = format(date, "yyyy-MM-dd");
+        const result = await fetchEventsByDate(formatted);
 
-        try {
-            const response = await fetch(
-                `https://localhost:7187/api/events/${formatted}`
-            );
-            if (!response.ok) {
-                throw new Error("Kunde inte hämta evenemang.");
-            }
-
-            const data: Event[] = await response.json();
-            console.log("Events from API:", data);
-            setEvents((prevEvents) => {
-                // Filter out events with the same date
-                const withoutDate = prevEvents.filter(
-                    (e) => e.date !== formatted
-                );
-                return [...withoutDate, ...data];
-            });
-        } catch (error) {
-            console.error(error);
-            toast.error("Fel vid hämtning av evenemang.");
+        if (!result.success || !result.data) {
+            toast.error(result.message || "Fel vid hämtning av evenemang.");
+            return;
         }
+
+        setEvents((prevEvents) => {
+            // Filter out events with the same date
+            const withoutDate = prevEvents.filter((e) => e.date !== formatted);
+            return [...withoutDate, ...result.data!];
+        });
     };
 
     useEffect(() => {
-        getEvents(selectedDate);
+        getEventsByDate(selectedDate);
     }, [selectedDate]);
 
     return (
