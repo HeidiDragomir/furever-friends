@@ -1,8 +1,8 @@
-import { format } from "date-fns";
 import Button from "../components/Button/Button.tsx";
 import CardItem from "../components/Card/CardItem.tsx";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { fetchAllItems } from "../api/itemsApi.ts";
 
 interface Item {
     id: number;
@@ -20,19 +20,13 @@ const Marketplace = () => {
     const [items, setItems] = useState<Item[]>([]);
 
     const getItems = async () => {
-        try {
-            const response = await fetch("https://localhost:7187/api/items");
-            if (!response.ok) {
-                throw new Error("Kunde inte hämta djurartiklar.");
-            }
+        const result = await fetchAllItems();
 
-            const data: Item[] = await response.json();
-            console.log("Items from API:", data);
-            setItems(data);
-        } catch (error) {
-            console.error(error);
-            toast.error("Fel vid hämtning av djurartiklar.");
+        if (!result.success || !result.data) {
+            toast.error(result.message || "Kunde inte hämta djurartiklar.");
+            return;
         }
+        setItems(result.data);
     };
 
     useEffect(() => {
@@ -60,9 +54,9 @@ const Marketplace = () => {
                         Inga annonser tillgängliga.
                     </p>
                 ) : (
-                    items.map((item) => (
+                    items.map((item, index) => (
                         <CardItem
-                            key={item.id}
+                            key={index}
                             title={item.title}
                             description={item.description}
                             image={item.image}

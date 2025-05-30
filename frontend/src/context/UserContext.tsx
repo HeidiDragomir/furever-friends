@@ -7,6 +7,7 @@ import {
     useState,
 } from "react";
 import toast from "react-hot-toast";
+import { loginUser, registerUser } from "../api/authApi.ts";
 
 export type User = {
     username?: string;
@@ -54,56 +55,37 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }
     }, []);
 
-    // LOGIN
-    const login = async (email: string, password: string): Promise<boolean> => {
-        try {
-            const res = await fetch(
-                "https://localhost:7187/api/users/authenticate",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password }),
-                }
-            );
-
-            if (!res.ok) return false;
-
-            const data = await res.json();
-
-            localStorage.setItem("token", data.token);
-            setToken(data.token);
-            setUser({ email });
-
-            return true;
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
-    };
-
     // REGISTER
     const register = async (
         username: string,
         email: string,
         password: string
     ): Promise<boolean> => {
-        try {
-            const res = await fetch(
-                "https://localhost:7187/api/users/register",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, email, password }),
-                }
+        const result = await registerUser(username, email, password);
+
+        if (!result.success) {
+            toast.error(
+                result.message || "Ett fel inträffade vid registrering."
             );
-
-            if (!res.ok) return false;
-
-            return true;
-        } catch (error) {
-            console.error(error);
             return false;
         }
+
+        return true;
+    };
+
+    // LOGIN
+    const login = async (email: string, password: string): Promise<boolean> => {
+        const result = await loginUser(email, password);
+
+        if (!result.success || !result.data) {
+            toast.error(result.message || "Ett fel inträffade vid inloggning.");
+            return false;
+        }
+
+        localStorage.setItem("token", result.data.token);
+        setToken(result.data.token);
+        setUser({ email });
+        return true;
     };
 
     // LOGOUT
